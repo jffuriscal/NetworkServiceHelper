@@ -11,19 +11,19 @@ import Alamofire
 public protocol ConvertibleRequest: URLRequestConvertible {
     
     // MARK: - Path
-    var path: String { get set }
+    var path: String { get }
     
     // MARK: - HTTPMethod
-    var method: HTTPMethod { get set }
+    var method: HTTPMethod { get }
     
     // MARK: - Parameters
-    var parameters: Parameters? { get set }
-    var multipart: Bool { get set }
-    var logging: Bool { get set }
+    var parameters: Parameters? { get }
+    var multipart: Bool { get }
+    var logging: Bool { get }
     
     // MARK: - headers
-    var headers: HTTPHeaders { get set }
+    var headers: HTTPHeaders { get }
     
     // MARK: - Encoding
-    var encoding: ParameterEncoding { get set }
+    var encoding: ParameterEncoding { get }
 }
