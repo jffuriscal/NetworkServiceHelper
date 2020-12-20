@@ -26,7 +26,4 @@ public protocol ConvertibleRequest: URLRequestConvertible {
     
     // MARK: - Encoding
     var encoding: ParameterEncoding { get set }
-    
-    // MARK: - URLRequestConvertible
-    override func asURLRequest() throws -> URLRequest
 }
