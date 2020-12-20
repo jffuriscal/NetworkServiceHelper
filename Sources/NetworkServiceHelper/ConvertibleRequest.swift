@@ -22,11 +22,11 @@ public protocol ConvertibleRequest: URLRequestConvertible {
     var logging: Bool { get set }
     
     // MARK: - headers
-    var headers: HTTPHeaders? { get set }
+    var headers: HTTPHeaders { get set }
     
     // MARK: - Encoding
     var encoding: ParameterEncoding { get set }
     
     // MARK: - URLRequestConvertible
-    func asURLRequest() throws -> URLRequest
+    override func asURLRequest() throws -> URLRequest
 }
