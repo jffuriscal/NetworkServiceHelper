@@ -25,7 +25,7 @@ public protocol ConvertibleRequest: URLRequestConvertible {
     var headers: HTTPHeaders? { get set }
     
     // MARK: - Encoding
-    var encoding: ParameterEncoder { get set }
+    var encoding: ParameterEncoding { get set }
     
     // MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest
