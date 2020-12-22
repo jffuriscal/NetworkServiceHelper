@@ -36,8 +36,10 @@ public class Reachability {
                 switch status {
                 case .notReachable:
                     netStatus = "unreachable"; break
-                case .reachable(let type):
-                    netStatus = (type == .cellular) ? "cellular" : "wifi"; break
+                case .reachable(.cellular):
+                    netStatus = "cellular"; break
+                case .reachable(.ethernetOrWiFi):
+                    netStatus = "wifi"; break
                 default:
                     netStatus = "unknown"
                 }

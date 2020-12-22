@@ -15,7 +15,7 @@ public typealias Completion = (_ res: JSON?, _ error: String?) -> Void
 public class WebRequest {
     public static let shared = WebRequest()
 
-    public func request(_ request: URLRequestConvertible, completion: @escaping Completion) {
+    public func request(_ request: API, completion: @escaping Completion) {
         if !Reachability.shared.isReachable { return }
         AF.request(request).response { response in
             switch response.result {
@@ -34,7 +34,7 @@ public class WebRequest {
         }
     }
     
-    public func requestFormData<T: ConvertibleRequest>( _ request: T, _ images: [UIImage]? = nil, completion: @escaping Completion) {
+    public func requestFormData( _ request: API, _ images: [UIImage]? = nil, completion: @escaping Completion) {
         if !Reachability.shared.isReachable { return }
         AF.upload(multipartFormData: { multipart in
             if let imgs = images {
@@ -44,7 +44,7 @@ public class WebRequest {
                     }
                 }
             }
-            if let param = request.parameters {
+            if let param = request.req.parameters {
                 param.forEach({ (key,value) in
                     multipart.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
                 })

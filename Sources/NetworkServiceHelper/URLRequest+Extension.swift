@@ -30,7 +30,7 @@ extension URLRequest {
         if logging {
             print("----API SERVICE LOG----")
             print("- url: \(url)")
-            print("- param: \(parameters ?? [:])")
+            print("- param: \(String(describing: parameters))")
             print("- method: \(method.rawValue)")
             print("- headers: \(headers)")
         }
