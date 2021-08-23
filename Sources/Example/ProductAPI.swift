@@ -14,7 +14,7 @@ struct ProductAPI {
     func getAll(params: Parameters, completion: @escaping Completion) {
         let req = API.get(path: baseURL + "/facts/random", params: params)
         
-        WebRequest.shared.request(req) { (json, error) in
+        WebRequest.shared.request(req) { (json, error, statusCode) in
             print(json ?? "any result", error ?? "any error")
         }
     }

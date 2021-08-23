@@ -10,7 +10,7 @@ import Alamofire
 import SwiftyJSON
 import Foundation
 
-public typealias Completion = (_ res: JSON?, _ error: String?) -> Void
+public typealias Completion = (_ res: JSON?, _ error: String?, _ statusCode: Int) -> Void
 
 public class WebRequest {
     public static let shared = WebRequest()
@@ -21,14 +21,15 @@ public class WebRequest {
             switch response.result {
             case .success(let data):
                 guard let resdata = data else {
-                    completion(nil, "No data available")
+                    completion(nil, "No data available", response.response!.statusCode)
                     return
                 }
                 let json = JSON(resdata)
-                completion(json, nil)
+                completion(json, nil, response.response!.statusCode)
                 break
             case .failure(let error):
-                completion(nil, "Error: \(error.localizedDescription)")
+                let status = response.response?.statusCode ?? 503
+                completion(nil, "Error: \(error.localizedDescription)", status)
                 break
             }
         }
@@ -53,14 +54,15 @@ public class WebRequest {
             switch response.result {
             case .success(let data):
                 guard let resdata = data else {
-                    completion(nil, "No data available")
+                    completion(nil, "No data available", response.response!.statusCode)
                     return
                 }
                 let json = JSON(resdata)
-                completion(json, nil)
+                completion(json, nil, response.response!.statusCode)
                 break
             case .failure(let error):
-                completion(nil, "Error: \(error.localizedDescription)")
+                let status = response.response?.statusCode ?? 503
+                completion(nil, "Error: \(error.localizedDescription)", status)
                 break
             }
         }
