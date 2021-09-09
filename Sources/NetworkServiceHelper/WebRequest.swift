@@ -35,13 +35,16 @@ public class WebRequest {
         }
     }
     
-    public func requestFormData( _ request: API, _ images: [UIImage]? = nil, completion: @escaping Completion) {
+    public func requestFormData( _ request: API, _ images: [[String:Any]]? = nil, completion: @escaping Completion) {
         if !Reachability.shared.isReachable { return }
         AF.upload(multipartFormData: { multipart in
             if let imgs = images {
-                for (idx, image) in imgs.enumerated() {
-                    if let imageData = image.jpegData(compressionQuality: 1) {
-                        multipart.append(imageData, withName: "file", fileName: "image\(idx).jpg", mimeType: "image/jpg")
+                for (idx, imageDict) in imgs.enumerated() {
+                    if let image = (imageDict["image"] as? UIImage),
+                       let imageData = image.jpegData(compressionQuality: 1) {
+                        let filename = (imageDict["filename"] as? String) ?? "image\(idx).jpg"
+                        let key = (imageDict["key"] as? String) ?? "file"
+                        multipart.append(imageData, withName: key, fileName: filename, mimeType: "image/jpg")
                     }
                 }
             }
